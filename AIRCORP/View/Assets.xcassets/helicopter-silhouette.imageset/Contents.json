@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "helicopter-silhouette.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

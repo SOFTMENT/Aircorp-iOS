@@ -23,6 +23,7 @@ class PilotModel : NSObject, Codable {
     var orderIndex : Int?
     var canFly : String?
     var phoneNumber : String?
+    var notificationToken : String?
     
     private static var pilotData: PilotModel?
     

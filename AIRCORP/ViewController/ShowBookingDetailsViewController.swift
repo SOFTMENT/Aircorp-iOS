@@ -33,6 +33,9 @@ class ShowBookingDetailsViewController : UIViewController {
     @IBOutlet weak var contactUsBtn: UIButton!
     @IBOutlet weak var signContactBtn: UIButton!
     
+    @IBOutlet weak var resositioningTimeLbl: UILabel!
+    @IBOutlet weak var repositioningCostLbl: UILabel!
+    
     override func viewDidLoad() {
 
         guard
@@ -47,16 +50,12 @@ class ShowBookingDetailsViewController : UIViewController {
       
         bookingModel.bookingCreateDate = Date()
         
-        let result = ceil(Double(bookingModel.totalTime!) / Double(30))
-        let intValue = Int(result) - 1
-        
+       
     
         
         signContactBtn.layer.cornerRadius = 8
         
-        if bookingModel.status == Status.CONTRACT_WAITING {
-            self.signContactBtn.isHidden = false
-        }
+    
      
         
         costView.layer.cornerRadius = 8
@@ -113,15 +112,23 @@ class ShowBookingDetailsViewController : UIViewController {
         }
         
       
-        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
+        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         bookingDate.text = convertDateForBooking(bookingModel.sourceTime ?? Date())
+        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         
+        resositioningTimeLbl.text = "\(convertMinToHourAndMin(totalMin: self.bookingModel!.repositioningTime ?? 0)) hours"
         
-        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
        
-        let timeInHour = Float(self.bookingModel!.totalTime!) / Float(60)
-        totalChargeLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        // Calculate total charge including repositioning
+        let timeInHour = Float(bookingModel.totalTime ?? 0) / 60
+        let repositioningTimeInHour = Float(bookingModel.repositioningTime ?? 0) / 60
+        
+        let totalCharge = ((timeInHour + repositioningTimeInHour) * Float(Constants.COST_PER_HOUR))
+        totalChargeLbl.text = "£\(totalCharge)"
         totalTimeFlyingCostLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        
+       
+        repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
      
     }
     
@@ -139,13 +146,6 @@ class ShowBookingDetailsViewController : UIViewController {
         self.performSegue(withIdentifier: "signContractSeg", sender: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "signContractSeg" {
-            if let VC = segue.destination as? SignContractViewController {
-                VC.bookingModel = self.bookingModel
-            }
-        }
-    }
     
     @objc func hideKeyboard(){
         self.view.endEditing(true)

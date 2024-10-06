@@ -26,32 +26,23 @@ final class GooglePlacesManager {
     }
     private init(){}
     
-    public func findPlaces(query : String, completion : @escaping (Result<[Place], Error>) -> Void) {
+    public func findPlaces(query: String, completion: @escaping (Result<[Place], Error>) -> Void) {
         let filter = GMSAutocompleteFilter()
-      
-        
-        let ne = CLLocationCoordinate2D(latitude: -26.1563119, longitude: 129.3241135)
-        
-        let sw = CLLocationCoordinate2D(latitude: -11.3223957, longitude: 137.8100646)
-        
-        filter.locationBias = GMSPlaceRectangularLocationOption(sw,
-                                           ne)
-        
+        filter.countries = ["UK"] // Set the countries to UK
         
         client.findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: nil) { results, error in
-            guard let results = results, error == nil else{
-                
-              
+            guard let results = results, error == nil else {
                 completion(.failure(PlacesError.failedToFind))
                 return
             }
             
-            let places : [Place] = results.compactMap { predication in
-                return Place(name: predication.attributedFullText.string, identifier: predication.placeID)
+            let places: [Place] = results.compactMap { prediction in
+                return Place(name: prediction.attributedFullText.string, identifier: prediction.placeID)
             }
             completion(.success(places))
         }
     }
+
     
     public func resolveLocation(
         for place : Place,

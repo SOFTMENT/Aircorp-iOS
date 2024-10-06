@@ -100,10 +100,11 @@ class ProfileViewController : UIViewController {
                 
                 self.ProgressHUDShow(text: "Account Deleting...")
                 let userId = user.uid
-                
+                        
                         Firestore.firestore().collection("Users").document(userId).delete { error in
                            
                             if error == nil {
+                                
                                 user.delete { error in
                                     self.ProgressHUDHide()
                                     if error == nil {
@@ -111,6 +112,8 @@ class ProfileViewController : UIViewController {
                                         
                                     }
                                     else {
+                                        print("DELETE ACCOUNT ERROR")
+                                        print(error!.localizedDescription)
                                         self.beRootScreen(mIdentifier: Constants.StroyBoard.signInViewController)
                                     }
     
@@ -157,13 +160,13 @@ class ProfileViewController : UIViewController {
     
     @objc func redirectToTermsOfService() {
         
-        guard let url = URL(string: "https://softment.in/terms-of-service/") else { return}
+        guard let url = URL(string: "https://softment.com/terms-of-service/") else { return}
         UIApplication.shared.open(url)
     }
     
     @objc func redirectToPrivacyPolicy() {
         
-        guard let url = URL(string: "https://softment.in/privacy-policy/") else { return}
+        guard let url = URL(string: "https://softment.com/privacy-policy/") else { return}
         UIApplication.shared.open(url)
     }
     

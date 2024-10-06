@@ -47,7 +47,7 @@ class AddNotificationViewController : UIViewController {
         self.view.endEditing(true)
         let docRef =  Firestore.firestore().collection("Notifications").document()
         docRef.setData(["notificationTime" : Date(),"title" : sTitle, "message" : sMessage,"notificationId": docRef.documentID])
-        PushNotificationSender().sendPushNotificationToTopic(title: sTitle, body: sMessage)
+       // PushNotificationSender().sendPushNotificationToTopic(title: sTitle, body: sMessage)
         
         notificationTitle.text = ""
         notificationMessage.text = ""

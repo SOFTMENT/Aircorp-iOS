@@ -32,7 +32,6 @@ struct Status {
     static let CONFIRMED = "Confirmed"
     static let CANCELED = "Canceled"
     static let COMPLETED = "Completed"
-    static let CONTRACT_WAITING = "Contract"
     
 }
 

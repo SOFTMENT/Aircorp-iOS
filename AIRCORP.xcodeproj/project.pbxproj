@@ -81,7 +81,6 @@
 		5DF4FE1E2B7E909E00810E99 /* MapRadarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF4FE1D2B7E909E00810E99 /* MapRadarViewController.swift */; };
 		5DF4FE202B7E91D500810E99 /* RadarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF4FE1F2B7E91D500810E99 /* RadarViewController.swift */; };
 		5DF7BC832B8033AA00B27D62 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF7BC822B8033AA00B27D62 /* SignatureView.swift */; };
-		5DF7BC852B80343200B27D62 /* SignContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF7BC842B80343200B27D62 /* SignContractViewController.swift */; };
 		5DF7BC872B80486900B27D62 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5DF7BC862B80486900B27D62 /* success.json */; };
 		5DF7BC892B8048A600B27D62 /* BookingApprovedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF7BC882B8048A600B27D62 /* BookingApprovedViewController.swift */; };
 		CC19FD83E40AAF42ED0034DA /* Pods_AIRCORP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF8430E9B5F8E27377D2F48 /* Pods_AIRCORP.framework */; };
@@ -166,7 +165,6 @@
 		5DF4FE1D2B7E909E00810E99 /* MapRadarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRadarViewController.swift; sourceTree = "<group>"; };
 		5DF4FE1F2B7E91D500810E99 /* RadarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarViewController.swift; sourceTree = "<group>"; };
 		5DF7BC822B8033AA00B27D62 /* SignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
-		5DF7BC842B80343200B27D62 /* SignContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignContractViewController.swift; sourceTree = "<group>"; };
 		5DF7BC862B80486900B27D62 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		5DF7BC882B8048A600B27D62 /* BookingApprovedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingApprovedViewController.swift; sourceTree = "<group>"; };
 		A2441558C5A4C1EEA3B25259 /* Pods-AIRCORP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AIRCORP.release.xcconfig"; path = "Target Support Files/Pods-AIRCORP/Pods-AIRCORP.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,7 +262,6 @@
 				5D4922322B702524008711B9 /* ShowBookingDetailsViewController.swift */,
 				5DF4FE1D2B7E909E00810E99 /* MapRadarViewController.swift */,
 				5DF4FE1F2B7E91D500810E99 /* RadarViewController.swift */,
-				5DF7BC842B80343200B27D62 /* SignContractViewController.swift */,
 				5DF7BC882B8048A600B27D62 /* BookingApprovedViewController.swift */,
 			);
 			path = ViewController;
@@ -517,7 +514,6 @@
 				5D8987672B6D683400516791 /* ShowWeatherViewController.swift in Sources */,
 				5D8987702B6D783500516791 /* AirCraftViewController.swift in Sources */,
 				5D4D369D2B78329B0098F77B /* GooglePlacesManager.swift in Sources */,
-				5DF7BC852B80343200B27D62 /* SignContractViewController.swift in Sources */,
 				5D3696202B6721E000EBBB26 /* SignInViewController.swift in Sources */,
 				5D8987762B6D789C00516791 /* AdminProfileViewController.swift in Sources */,
 				5D4D36A32B7837180098F77B /* GoogleLocationCallback.swift in Sources */,
@@ -729,7 +725,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AIRCORP/AIRCORP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4S3288LXG6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -750,7 +746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.92;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aviation.AIRCORP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -769,7 +765,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AIRCORP/AIRCORP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4S3288LXG6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -790,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.92;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aviation.AIRCORP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

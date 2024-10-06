@@ -80,9 +80,7 @@ class MyAllBookingsViewController : UIViewController {
         else if value.value == Status.CONFIRMED{
             self.showMessage(title: "CONFIRMED", message: "Your booking has been confirmed. Happy Journey.")
         }
-        else if value.value == Status.CONTRACT_WAITING{
-            self.showMessage(title: "CONTRACT", message: "We're waitinng for your sign on the contract.")
-        }
+
         else if value.value == Status.COMPLETED {
             self.showMessage(title: "COMPLETED", message: "The booking from \(bookingModel.sourceLocation!) to \(bookingModel.destinationLocation!) has been successfully completed on \(self.convertDateForTicket(bookingModel.completionDate ?? Date())).")
         }

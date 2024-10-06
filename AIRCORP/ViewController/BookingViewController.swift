@@ -1,14 +1,9 @@
-//
-//  BookingViewController.swift
-//  AIRCORP
-//
-//  Created by Vijay Rathore on 29/01/24.
-//
-
 import UIKit
 
 class BookingViewController : UIViewController {
     
+    @IBOutlet weak var termsAndConditionsLbl: UILabel!
+    @IBOutlet weak var termsAndConditionsCheckBox: UIButton!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var selectTravelingModeTF: UITextField!
     @IBOutlet weak var fromTF: UITextField!
@@ -32,6 +27,7 @@ class BookingViewController : UIViewController {
     let options = [VehicleMode.HELICOPTER, VehicleMode.PLANE]
     @IBOutlet weak var mView: UIView!
     var totalPassenger = 0
+
     
     var airportModelFrom : AirportModel?
     var airportModelTo : AirportModel?
@@ -41,6 +37,10 @@ class BookingViewController : UIViewController {
     
     var departAppointmentModel : AppointmentModel?
     var returnAppointmentModel : AppointmentModel?
+    
+    let belfastAirportCode = "EGAA" // Example code for Belfast airport
+ 
+ 
     override func viewDidLoad() {
         
         mView.roundTopCorners(cornerRadius: 24)
@@ -144,6 +144,16 @@ class BookingViewController : UIViewController {
       
     }
     
+    @IBAction func termsAndConditionsCheckClicked(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+        }
+        else {
+            sender.isSelected = true
+        }
+    }
+    
+    
     @objc func returnDateViewClicked(){
       
         if departAppointmentModel != nil {
@@ -165,18 +175,19 @@ class BookingViewController : UIViewController {
     
     
     @objc func locationFieldTapped(value : MyGesture) {
-        let sVehicleMode = selectTravelingModeTF.text
-        if sVehicleMode == "" {
+      
+        guard let travelingMode = Constants.travelingMode else {
             self.showSnack(messages: "Select travelling mode")
+            return
         }
-        else {
-            if pickerView.selectedRow(inComponent: 0) == 0 {
+       
+            if travelingMode == VehicleMode.HELICOPTER  {
                 performSegue(withIdentifier: "googleLocationSelectSeg", sender: value.index)
             }
             else {
                 performSegue(withIdentifier: "locationSelectSeg", sender: value.index)
             }
-        }
+       
        
      
     }
@@ -284,19 +295,6 @@ class BookingViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if let travelingMode = Constants.travelingMode {
-       
-            if travelingMode == VehicleMode.HELICOPTER {
-                threeTraveller.isHidden = false
-                fourTraveller.isHidden = false
-                fiveTraveller.isHidden = false
-            }
-            else {
-              
-              
-                fourTraveller.isHidden = true
-                fiveTraveller.isHidden = true
-            }
-            
            
             self.selectTravelingModeTF.text = travelingMode
         }
@@ -305,106 +303,128 @@ class BookingViewController : UIViewController {
     
 
     
-    @IBAction func bookBtnClicked(_ sender: Any) {
-        let travellingMode = selectTravelingModeTF.text
-        
-        if  travellingMode == "" {
-            self.showSnack(messages: "Select Mode of Travel")
-        }
-        
-        var latitudeTo = 0.0
-        var longitudeTo = 0.0
-        var shortNameTo = ""
-        var nameTo = ""
-        
-        var latitudeFrom = 0.0
-        var longitudeFrom = 0.0
-        var shortNameFrom = ""
-        var nameFrom = ""
-        
-        if pickerView.selectedRow(inComponent: 0) == 0 {
-            if let placeModelTo = self.placeModelTo {
-                if let placeModelFrom = self.placeModelFrom {
-                    latitudeTo = placeModelTo.latitude!
-                    longitudeTo = placeModelTo.longitude!
-                    shortNameTo = placeModelTo.shortName!
-                    nameTo = placeModelTo.name!
-                    
-                    latitudeFrom = placeModelFrom.latitude!
-                    longitudeFrom = placeModelFrom.longitude!
-                    shortNameFrom = placeModelFrom.shortName!
-                    nameFrom = placeModelFrom.name!
+ 
+
+        @IBAction func bookBtnClicked(_ sender: Any) {
+                let travellingMode = selectTravelingModeTF.text
+                
+                if  travellingMode == "" {
+                    self.showSnack(messages: "Select Mode of Travel")
                 }
-                else {
-                    self.showSnack(messages: "Select Destination")
-                    return
-                }
-            }
-            else {
-                self.showSnack(messages: "Select Departure")
-                return
-            }
-        }
-        else {
-            if let airportModelTo = self.airportModelTo {
-                if let airportModelFrom = self.airportModelFrom {
-                    latitudeTo = Double(airportModelTo.latitude_deg!)!
-                    longitudeTo = Double(airportModelTo.longitude_deg!)!
-                    shortNameTo = airportModelTo.ident!
-                    nameTo = airportModelTo.name!
-                    
-                    latitudeFrom = Double(airportModelFrom.latitude_deg!)!
-                    longitudeFrom =  Double(airportModelFrom.longitude_deg!)!
-                    shortNameFrom = airportModelFrom.ident!
-                    nameFrom = airportModelFrom.name!
-                }
-                else {
-                    self.showSnack(messages: "Select Destination")
-                    return
-                }
-            }
-            else {
-                self.showSnack(messages: "Select Departure")
-                return
-            }
-        }
-        
-       
-                if let departAppointmentModel = self.departAppointmentModel {
-                    if totalPassenger == 0 {
-                        self.showSnack(messages: "Select Passenger")
+                
+                var latitudeTo = 0.0
+                var longitudeTo = 0.0
+                var shortNameTo = ""
+                var nameTo = ""
+                
+                var latitudeFrom = 0.0
+                var longitudeFrom = 0.0
+                var shortNameFrom = ""
+                var nameFrom = ""
+                
+                if pickerView.selectedRow(inComponent: 0) == 0 {
+                    if let placeModelFrom = self.placeModelFrom {
+                        if let placeModelTo = self.placeModelTo {
+                            latitudeTo = placeModelTo.latitude!
+                            longitudeTo = placeModelTo.longitude!
+                            shortNameTo = placeModelTo.shortName!
+                            nameTo = placeModelTo.name!
+                            
+                            latitudeFrom = placeModelFrom.latitude!
+                            longitudeFrom = placeModelFrom.longitude!
+                            shortNameFrom = placeModelFrom.shortName!
+                            nameFrom = placeModelFrom.name!
+                        }
+                        else {
+                            self.showSnack(messages: "Select Destination")
+                            return
+                        }
                     }
                     else {
-                        let bookingModel = BookingModel()
-                        bookingModel.bookingId = FirebaseStoreManager.db.collection("Bookings").document().documentID
-                        bookingModel.status = Status.PENDINGBYPILOT
-                        bookingModel.sourceLocation = nameFrom
-                        bookingModel.sourceTime = self.combineDateAndTimeString(existingDate: departAppointmentModel.appointmentDate!, timeString: departAppointmentModel.appointmentStarTime!)
-                        bookingModel.sourceLocationCode = shortNameFrom
-                        bookingModel.totalPassenger = totalPassenger
-                        let distance = self.haversineDistance(lat1: latitudeFrom, lon1:longitudeFrom, lat2: latitudeTo, lon2: longitudeTo)
-                        
-                     
-                        let timeInHour = self.calculateTimeInHour(miles: distance)
-                    
-                      
-                        
-                        bookingModel.destinationLocation = nameTo
-                        bookingModel.destinationTime = bookingModel.sourceTime!.addingTimeInterval(timeInHour * 60 * 60)
-                        bookingModel.destinationLocationCode = shortNameTo
-                        
-                        bookingModel.uid = FirebaseStoreManager.auth.currentUser?.uid
-                        bookingModel.totalTime = Int(timeInHour * 60)
-                        bookingModel.modeOfTravel = travellingMode
-                       
-                        self.performSegue(withIdentifier: "estimationSeg", sender: bookingModel)
-                        
+                        self.showSnack(messages: "Select Departure")
+                        return
                     }
                 }
                 else {
-                    self.showSnack(messages: "Select Departure Date")
+                    if let airportModelTo = self.airportModelTo {
+                        if let airportModelFrom = self.airportModelFrom {
+                            latitudeTo = Double(airportModelTo.latitude_deg!)!
+                            longitudeTo = Double(airportModelTo.longitude_deg!)!
+                            shortNameTo = airportModelTo.ident!
+                            nameTo = airportModelTo.name!
+                            
+                            latitudeFrom = Double(airportModelFrom.latitude_deg!)!
+                            longitudeFrom =  Double(airportModelFrom.longitude_deg!)!
+                            shortNameFrom = airportModelFrom.ident!
+                            nameFrom = airportModelFrom.name!
+                        }
+                        else {
+                            self.showSnack(messages: "Select Destination")
+                            return
+                        }
+                    }
+                    else {
+                        self.showSnack(messages: "Select Departure")
+                        return
+                    }
                 }
-          
+                
+               
+                        if let departAppointmentModel = self.departAppointmentModel {
+                            if totalPassenger == 0 {
+                                self.showSnack(messages: "Select Passenger")
+                            }
+                            else {
+                                
+                                if !termsAndConditionsCheckBox.isSelected {
+                                    self.showSnack(messages: "Please accept terms and conditions")
+                                    return
+                                }
+                                
+                                let bookingModel = BookingModel()
+                                bookingModel.bookingId = FirebaseStoreManager.db.collection("Bookings").document().documentID
+                                bookingModel.status = Status.PENDINGBYPILOT
+                                bookingModel.sourceLocation = nameFrom
+                                bookingModel.sourceTime = self.combineDateAndTimeString(existingDate: departAppointmentModel.appointmentDate!, timeString: departAppointmentModel.appointmentStarTime!)
+                                bookingModel.sourceLocationCode = shortNameFrom
+                                bookingModel.totalPassenger = totalPassenger
+                                let distance = self.haversineDistance(lat1: latitudeFrom, lon1:longitudeFrom, lat2: latitudeTo, lon2: longitudeTo)
+                                
+                             
+                                let timeInHour = self.calculateTimeInHour(miles: distance)
+                            
+                                
+                                // Check if the flight involves Belfast and add repositioning time and cost
+                                if airportModelFrom?.ident == belfastAirportCode {
+                                    // If departing from Belfast, calculate repositioning for return to Belfast
+                                   
+                                   
+                                    bookingModel.repositioningTime = Int(timeInHour * 60)
+                                } else if airportModelTo?.ident == belfastAirportCode {
+                                    // If arriving at Belfast, calculate repositioning for departing to the location
+                                  
+                                 
+                                    bookingModel.repositioningTime = Int(timeInHour * 60)
+                                }
+                                
+                              
+                                
+                                bookingModel.destinationLocation = nameTo
+                                bookingModel.destinationTime = bookingModel.sourceTime!.addingTimeInterval(timeInHour * 60 * 60)
+                                bookingModel.destinationLocationCode = shortNameTo
+                                
+                                bookingModel.uid = FirebaseStoreManager.auth.currentUser?.uid
+                                bookingModel.totalTime = Int(timeInHour * 60)
+                                bookingModel.modeOfTravel = travellingMode
+                               
+                                self.performSegue(withIdentifier: "estimationSeg", sender: bookingModel)
+                                
+                            }
+                        }
+                        else {
+                            self.showSnack(messages: "Select Departure Date")
+                        }
+                  
         
     }
     @IBAction func oneWayRoundWaySegmentChanged(_ sender: UISegmentedControl) {
@@ -482,14 +502,12 @@ extension BookingViewController : UIPickerViewDelegate, UIPickerViewDataSource {
         self.placeModelFrom = nil
         
         if row == 0 {
-            threeTraveller.isHidden = false
-            fourTraveller.isHidden = false
-            fiveTraveller.isHidden = false
+            Constants.travelingMode = VehicleMode.HELICOPTER
+          
         }
         else {
-          
-            fourTraveller.isHidden = true
-            fiveTraveller.isHidden = true
+            Constants.travelingMode = VehicleMode.PLANE
+            
         }
         selectTravelingModeTF.text = options[row]
     }

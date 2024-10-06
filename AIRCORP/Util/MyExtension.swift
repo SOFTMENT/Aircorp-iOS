@@ -196,7 +196,7 @@ extension UIViewController {
     }
     
     func sendMail(name : String, email : String, msubject : String, body : String){
-        let url = URL(string: "https://softment.in/aircorp/php-mailer/sendmail.php")!
+        let url = URL(string: "https://softment.com/aircorp/php-mailer/sendmail.php")!
           var request = URLRequest(url: url)
           request.httpMethod = "POST"
           request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -300,7 +300,7 @@ extension UIViewController {
         
         let query = FirebaseStoreManager.db.collection("Bookings").order(by: "bookingCreateDate",descending: true).whereField("piolatID", isEqualTo: uid)
      
-        query.getDocuments { snapshot, error in
+        query.addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(nil, error.localizedDescription)
             }
@@ -322,7 +322,7 @@ extension UIViewController {
         
         let query = FirebaseStoreManager.db.collection("Bookings").order(by: "bookingCreateDate",descending: true)
      
-        query.getDocuments { snapshot, error in
+        query.addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(nil, error.localizedDescription)
             }
@@ -733,6 +733,7 @@ extension UIViewController {
 
         return distanceInNauticalMiles
     }
+    
     func getWeatherInformation(key : String,lat : Double, long : Double, completion : @escaping (_ weatherModel : WeatherModel?, _ error : String?)->Void){
         var request = URLRequest(url: URL(string: "https://api.weatherapi.com/v1/current.json?key=\(key)&q=\(lat)%2C\(long)")!,timeoutInterval: Double.infinity)
         request.httpMethod = "GET"

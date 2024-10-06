@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           application.registerUserNotificationSettings(settings)
         }
     
-        GMSPlacesClient.provideAPIKey("AIzaSyBL34AVNKmkbFA7EAVtZXZkwyf9m7_mNss")
+        GMSPlacesClient.provideAPIKey("AIzaSyC8t5Nsm2_mPQ_-Xy3grTUbSplzMGPmm0M") //VIJAY CLOUD CONSOLE
         
         application.registerForRemoteNotifications()
        

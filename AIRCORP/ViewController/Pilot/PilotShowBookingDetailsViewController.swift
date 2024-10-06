@@ -32,7 +32,9 @@ class PilotShowBookingDetailsViewController : UIViewController {
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
     
- 
+    @IBOutlet weak var numberOfTravelers: UILabel!
+    @IBOutlet weak var resositioningTimeLbl: UILabel!
+    @IBOutlet weak var repositioningCostLbl: UILabel!
     
     override func viewDidLoad() {
 
@@ -45,9 +47,10 @@ class PilotShowBookingDetailsViewController : UIViewController {
        
         bookingModel.bookingCreateDate = Date()
         
-        let result = ceil(Double(bookingModel.totalTime!) / Double(30))
-        let intValue = Int(result) - 1
+//        let result = ceil(Double(bookingModel.totalTime!) / Double(30))
+//        let intValue = Int(result) - 1
        
+        numberOfTravelers.text = "\(bookingModel.totalPassenger ?? 0) \(bookingModel.totalPassenger == 1 ? "Passenger" : "Passengers")"
     
         rejectBtn.layer.cornerRadius = 8
         acceptBtn.layer.cornerRadius = 8
@@ -109,15 +112,21 @@ class PilotShowBookingDetailsViewController : UIViewController {
         }
         
       
-        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
+        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         bookingDate.text = convertDateForBooking(bookingModel.sourceTime ?? Date())
+        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         
+        resositioningTimeLbl.text = "\(convertMinToHourAndMin(totalMin: self.bookingModel!.repositioningTime ?? 0)) hours"
         
-        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
-       
-        let timeInHour = Float(self.bookingModel!.totalTime!) / Float(60)
-        totalChargeLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        // Calculate total charge including repositioning
+        let timeInHour = Float(bookingModel.totalTime ?? 0) / 60
+        let repositioningTimeInHour = Float(bookingModel.repositioningTime ?? 0) / 60
+        
+        let totalCharge = ((timeInHour + repositioningTimeInHour) * Float(Constants.COST_PER_HOUR))
+        totalChargeLbl.text = "£\(totalCharge)"
         totalTimeFlyingCostLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        
+        repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
      
     }
     

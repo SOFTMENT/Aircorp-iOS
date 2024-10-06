@@ -6,38 +6,36 @@
 //
 
 import UIKit
+import FirebaseFunctions
 
 class PushNotificationSender {
-    
-    
-    func sendPushNotificationToTopic(title: String, body: String) {
-        let urlString = "https://fcm.googleapis.com/fcm/send"
-        let url = NSURL(string: urlString)!
-        
-        let paramString: [String : Any] = ["to" : "/topics/aircorp",
-                                           "notification" : ["title" : title, "body" : body],
-                                           "data" : ["user" : "test_id"]
-        ]
-        
-        let request = NSMutableURLRequest(url: url as URL)
-        request.httpMethod = "POST"
-        request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("key=AAAAtlbcIow:APA91bGeTY6gbhiOo1VDwXNgqafO5rRXaurtcJ_XcwhNGIBxRP93v_EusMi2Uqbt23RzhjUc-MIU8Etf95syofffk9pRF67_xCO6wAjEOqUapR1h5Y_B2tpFRNGhChXchnv7y-BwvqhA", forHTTPHeaderField: "Authorization")
-        
-        let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
-            do {
-                if let jsonData = data {
-                    if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
-                        NSLog("Received data:\n\(jsonDataDict))")
-                        
-                    }
-                }
-            } catch let err as NSError {
-                print(err.debugDescription)
-            }
-        }
-        task.resume()
-    }
+    private lazy var functions = Functions.functions()
+    func sendPushNotification(title: String, body: String, topic: String) {
+       
+               // Prepare the data to send to the Cloud Function
+               let data: [String: Any] = [
+                   "deviceToken": topic,
+                   "title": title,
+                   "body": body
+               ]
 
+               // Call the 'sendNotification' Cloud Function
+               functions.httpsCallable("sendNotification").call(data) { result, error in
+                   if let error = error as NSError? {
+                       // Handle any errors here
+                       print("Error calling Cloud Function: \(error.localizedDescription)")
+                       return
+                   }
+
+                   // Handle the result from the Cloud Function
+                   if let resultData = result?.data as? [String: Any] {
+                       if let success = resultData["success"] as? Bool, success {
+                           print("Notification sent successfully!")
+                       } else {
+                           print("Failed to send notification.")
+                       }
+                   }
+               }
+          
+    }
 }

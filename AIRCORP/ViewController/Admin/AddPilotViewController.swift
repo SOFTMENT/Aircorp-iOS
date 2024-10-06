@@ -383,7 +383,7 @@ class AddPilotViewController : UIViewController {
         let userModel = UserModel()
         userModel.uid = pilotModel.id
         userModel.fullName = "PILOT"
-        try? FirebaseStoreManager.db.collection("Users").document(pilotModel.id!).setData(from: userModel) { error in
+        try? FirebaseStoreManager.db.collection("Users").document(pilotModel.id!).setData(from: userModel,merge: true) { error in
         }
         
                 try? FirebaseStoreManager.db.collection("Pilots").document(pilotModel.id!).setData(from: pilotModel) { error in

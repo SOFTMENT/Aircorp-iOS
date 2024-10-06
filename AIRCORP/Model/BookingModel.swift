@@ -19,6 +19,7 @@ class BookingModel : NSObject, Codable {
     var destinationLocation : String?
     var destinationTime : Date?
     var totalTime : Int?
+    var repositioningTime : Int?
     var bookingCreateDate : Date?
     var modeOfTravel : String?
     var status : String?

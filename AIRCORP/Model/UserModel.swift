@@ -22,7 +22,8 @@ class UserModel : NSObject, Codable {
     var registredAt : Date?
     var regiType : String?
     var profilePic : String?
-   
+    
+    var notificationToken: String?
     
     private static var userData : UserModel?
     

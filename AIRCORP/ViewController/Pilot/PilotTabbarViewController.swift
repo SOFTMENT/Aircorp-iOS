@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseMessaging
 
 class PilotTabbarViewController : UITabBarController, UITabBarControllerDelegate {
   
@@ -22,7 +23,7 @@ class PilotTabbarViewController : UITabBarController, UITabBarControllerDelegate
         tabBarItems.image = deSelectedImage1
         tabBarItems.selectedImage = selectedImage1
         
-
+        
         
         let selectedImage3 = UIImage(named: "Autopilot")?.withRenderingMode(.alwaysOriginal)
         let deSelectedImage3 = UIImage(named: "Autopilot(2)")?.withRenderingMode(.alwaysOriginal)
@@ -45,8 +46,28 @@ class PilotTabbarViewController : UITabBarController, UITabBarControllerDelegate
         tabBarItems.selectedImage = selectedImage5
         
         selectedIndex = Constants.selectedIndex
+        // Updates the FCM token for notifications
+        func updateFCMToken() {
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error fetching FCM token: \(error)")
+                } else if let token = token {
+                    self.updateUserNotificationToken(token)
+                }
+            }
+        }
     }
-    
+        // Helper function to update user and business notification tokens
+        private func updateUserNotificationToken(_ token: String) {
+            if let currentUser = FirebaseStoreManager.auth.currentUser {
+                UserModel.data?.notificationToken = token
+                FirebaseStoreManager.db.collection("Pilots").document(currentUser.uid)
+                    .setData(["notificationToken": token], merge: true)
+
+            } else {
+                self.logout()
+            }
+        }
 }
 
 

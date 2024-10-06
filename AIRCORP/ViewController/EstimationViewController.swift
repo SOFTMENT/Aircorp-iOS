@@ -1,10 +1,3 @@
-//
-//  EstimationViewController.swift
-//  AIRCORP
-//
-//  Created by Vijay Rathore on 01/02/24.
-//
-
 import UIKit
 
 class EstimationViewController : UIViewController {
@@ -35,7 +28,8 @@ class EstimationViewController : UIViewController {
     @IBOutlet weak var totalChargeLbl: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var bookBtn: UIButton!
-
+    @IBOutlet weak var resositioningTimeLbl: UILabel!
+    @IBOutlet weak var repositioningCostLbl: UILabel!
     
     override func viewDidLoad() {
 
@@ -58,6 +52,7 @@ class EstimationViewController : UIViewController {
             self.appointmentReturnModel?.appointmentId = bookingModel.bookingId
           
         }
+        
         let result = ceil(Double(bookingModel.totalTime!) / Double(30))
         let intValue = Int(result) - 1
         
@@ -67,7 +62,6 @@ class EstimationViewController : UIViewController {
             if let appointmentReturnModel = self.appointmentReturnModel {
                 appointmentReturnModel.selectedHours!.append(appointmentReturnModel.selectedHours![0] + y)
             }
-            
             
         }
         
@@ -129,15 +123,21 @@ class EstimationViewController : UIViewController {
         }
         
       
-        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
+        totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         bookingDate.text = convertDateForBooking(bookingModel.sourceTime ?? Date())
+        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         
+        resositioningTimeLbl.text = "\(convertMinToHourAndMin(totalMin: self.bookingModel!.repositioningTime ?? 0)) hours"
         
-        totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hour"
-       
-        let timeInHour = Float(self.bookingModel!.totalTime!) / Float(60)
-        totalChargeLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        // Calculate total charge including repositioning
+        let timeInHour = Float(bookingModel.totalTime ?? 0) / 60
+        let repositioningTimeInHour = Float(bookingModel.repositioningTime ?? 0) / 60
+        
+        let totalCharge = ((timeInHour + repositioningTimeInHour) * Float(Constants.COST_PER_HOUR))
+        totalChargeLbl.text = "£\(totalCharge)"
         totalTimeFlyingCostLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
+        
+        repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
      
     }
     
@@ -146,6 +146,7 @@ class EstimationViewController : UIViewController {
     @IBAction func bookBtnClicked(_ sender: Any) {
         
         self.ProgressHUDShow(text: "")
+        
             getPilots(By: 0, mode: bookingModel!.modeOfTravel!) { pilotModel, error in
                 if let error = error {
                     self.ProgressHUDHide()

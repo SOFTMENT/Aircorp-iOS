@@ -30,9 +30,11 @@ class EstimationViewController : UIViewController {
     @IBOutlet weak var bookBtn: UIButton!
     @IBOutlet weak var resositioningTimeLbl: UILabel!
     @IBOutlet weak var repositioningCostLbl: UILabel!
+    @IBOutlet weak var allTravellers: UILabel!
+    
     
     override func viewDidLoad() {
-
+        
         guard let appointmentDepartModel = appointmentDepartModel,
               let bookingModel = bookingModel else {
             DispatchQueue.main.async {
@@ -41,16 +43,16 @@ class EstimationViewController : UIViewController {
             return
         }
         
-       
-    
+        
+        
         
         appointmentDepartModel.appointmentId = bookingModel.bookingId
         
-      
+        
         bookingModel.bookingCreateDate = Date()
         if appointmentReturnModel != nil {
             self.appointmentReturnModel?.appointmentId = bookingModel.bookingId
-          
+            
         }
         
         let result = ceil(Double(bookingModel.totalTime!) / Double(30))
@@ -78,12 +80,12 @@ class EstimationViewController : UIViewController {
         bookBtn.layer.cornerRadius = 8
         backView.dropShadow()
         
-       
+        
         
         self.mView.clipsToBounds = true
         self.mView.layer.cornerRadius = 20
         self.mView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
+        
         self.topView.isUserInteractionEnabled = true
         self.topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backBtnClicked)))
         
@@ -93,24 +95,24 @@ class EstimationViewController : UIViewController {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         
-       
-       
         
-   
-     bookingView.dropShadow()
+        
+        
+        
+        bookingView.dropShadow()
         bookingView.layer.cornerRadius = 8
         
-       mModeView.layer.cornerRadius = mModeView.bounds.height / 2
-      
+        mModeView.layer.cornerRadius = mModeView.bounds.height / 2
+        
         
         
         sourceTime.text = self.convertDateIntoTime(bookingModel.sourceTime!)
-       sourceLocationCode.text = bookingModel.sourceLocationCode ?? ""
-       sourceLocationName.text = bookingModel.sourceLocation ?? ""
+        sourceLocationCode.text = bookingModel.sourceLocationCode ?? ""
+        sourceLocationName.text = bookingModel.sourceLocation ?? ""
         
         destinationTime.text = self.convertDateIntoTime(bookingModel.destinationTime!)
         destinationLocationCode.text = bookingModel.destinationLocationCode ?? ""
-      destinationLocationName.text = bookingModel.destinationLocation ?? ""
+        destinationLocationName.text = bookingModel.destinationLocation ?? ""
         
         
         if let mode = bookingModel.modeOfTravel {
@@ -122,7 +124,7 @@ class EstimationViewController : UIViewController {
             }
         }
         
-      
+        
         totalDuration.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
         bookingDate.text = convertDateForBooking(bookingModel.sourceTime ?? Date())
         totalTimeFlyingLbl.text = "\(convertMinToHourAndMin(totalMin: bookingModel.totalTime ?? 0)) hours"
@@ -138,10 +140,24 @@ class EstimationViewController : UIViewController {
         totalTimeFlyingCostLbl.text = "£\(timeInHour * Float(Constants.COST_PER_HOUR))"
         
         repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
-     
+        
+        allTravellers.isUserInteractionEnabled = true
+        allTravellers.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(allTravellersClicked)))
+        
     }
     
-  
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "allTravellers"  {
+            if let VC = segue.destination as? AllTravellersViewController {
+                VC.travellerArray = self.bookingModel!.travellers
+            }
+        }
+    }
+    
+    @objc func allTravellersClicked() {
+        self.performSegue(withIdentifier: "allTravellers", sender: self.bookingModel!.travellers)
+    }
     
     @IBAction func bookBtnClicked(_ sender: Any) {
         

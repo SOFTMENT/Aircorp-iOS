@@ -23,6 +23,14 @@ class AddAircraftViewController : UIViewController {
     @IBOutlet weak var addBtn: UIButton!
     
     @IBOutlet weak var uploadCertificateBtn: UIButton!
+
+    
+    @IBOutlet weak var totalFlyingTimeTF: UITextField!
+    @IBOutlet weak var aircraftCategoryTF: UITextField!
+    @IBOutlet weak var numberOfPassengerSeatsTF: UITextField!
+    @IBOutlet weak var aircraftCruiseSpeedTF: UITextField!
+    let pickerView = UIPickerView()
+    let options = [VehicleMode.HELICOPTER, VehicleMode.PLANE]
     
     let nextServicePicker = UIDatePicker()
     let annualPicker = UIDatePicker()
@@ -48,6 +56,18 @@ class AddAircraftViewController : UIViewController {
         
         setupServiceDatePicker()
         setupAnnualDatePicker()
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        aircraftCategoryTF.inputView = pickerView
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.dismissKeyboard))
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        aircraftCategoryTF.inputAccessoryView = toolBar
     }
     
     func setupServiceDatePicker() {
@@ -158,10 +178,18 @@ class AddAircraftViewController : UIViewController {
         self.present(alert,animated: true,completion: nil)
         
     }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @IBAction func addBtnClicked(_ sender: Any) {
         
         let sAirCraftNumber = aircraftNumber.text
-      
+        let sFlyingTime = totalFlyingTimeTF.text
+        let sAircraftType = aircraftCategoryTF.text
+        let sNumberOfSeats = numberOfPassengerSeatsTF.text
+        let sAircraftCruiseSpeed = aircraftCruiseSpeedTF.text
         let sNextService = nextServiceDateTF.text
         let sAnnual = annualDateTF.text
        
@@ -171,6 +199,18 @@ class AddAircraftViewController : UIViewController {
         }
         else if sAirCraftNumber == "" {
             self.showSnack(messages: "Enter aircraft number")
+        }
+        else if sFlyingTime == "" {
+            self.showSnack(messages: "Enter Total Flying Time")
+        }
+        else if sAircraftType == "" {
+            self.showSnack(messages: "Select Aircraft Category")
+        }
+        else if sNumberOfSeats == "" {
+            self.showSnack(messages: "Enter Number Of Seats")
+        }
+        else if sAircraftCruiseSpeed == "" {
+            self.showSnack(messages: "Enter Aircraft Cruise Speed")
         }
 
         else if sNextService == "" {
@@ -188,10 +228,14 @@ class AddAircraftViewController : UIViewController {
             aircraftModel.nextServiceDate = nextServicePicker.date
             aircraftModel.annualDate = annualPicker.date
             aircraftModel.cerificateType = self.certificateType
+            
+            aircraftModel.flyingTime = sFlyingTime
+            aircraftModel.aircraftType = sAircraftType
+            aircraftModel.numberOfPassengersSeats = sNumberOfSeats
+            aircraftModel.cruiseSpeed = sAircraftCruiseSpeed
+            
             aircraftModel.aircraftCreateDate = Date()
             self.ProgressHUDShow(text: "")
-            
-           
                     
             self.uploadImageOnFirebase(uid: aircraftModel.id!, type: "AircraftPicture") { download,error  in
                         if let error = error {
@@ -442,3 +486,26 @@ extension AddAircraftViewController : UIDocumentPickerDelegate {
     }
 }
 
+
+extension AddAircraftViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return options.count
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return options[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+       
+        aircraftCategoryTF.text = options[row]
+    }
+    
+}

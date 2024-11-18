@@ -32,7 +32,8 @@ class PilotShowBookingDetailsViewController : UIViewController {
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
     
-    @IBOutlet weak var numberOfTravelers: UILabel!
+    @IBOutlet weak var allTravellers: UILabel!
+    
     @IBOutlet weak var resositioningTimeLbl: UILabel!
     @IBOutlet weak var repositioningCostLbl: UILabel!
     
@@ -50,7 +51,6 @@ class PilotShowBookingDetailsViewController : UIViewController {
 //        let result = ceil(Double(bookingModel.totalTime!) / Double(30))
 //        let intValue = Int(result) - 1
        
-        numberOfTravelers.text = "\(bookingModel.totalPassenger ?? 0) \(bookingModel.totalPassenger == 1 ? "Passenger" : "Passengers")"
     
         rejectBtn.layer.cornerRadius = 8
         acceptBtn.layer.cornerRadius = 8
@@ -128,6 +128,22 @@ class PilotShowBookingDetailsViewController : UIViewController {
         
         repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
      
+        
+        allTravellers.isUserInteractionEnabled = true
+        allTravellers.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(allTravellersClicked)))
+        
+    }
+    
+    @objc func allTravellersClicked() {
+        self.performSegue(withIdentifier: "travellersSeg", sender: self.bookingModel!.travellers)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "travellersSeg"  {
+            if let VC = segue.destination as? AllTravellersViewController {
+                VC.travellerArray = self.bookingModel!.travellers
+            }
+        }
     }
     
 

@@ -100,11 +100,12 @@ extension UITextField {
     func setRightIcons(icon: UIImage) {
         
         let padding = 8
-        let size = 12
+        let size = 18
         
         let outerView = UIView(frame: CGRect(x: 0, y: 0, width: size+padding, height: size) )
         let iconView  = UIImageView(frame: CGRect(x: -padding, y: 0, width: size, height: size))
         iconView.image = icon
+        iconView.tintColor = .black
         outerView.addSubview(iconView)
         
         rightView = outerView
@@ -522,6 +523,38 @@ extension UIViewController {
         
     }
     
+    func getOnlyUserData(uid : String, showProgress : Bool)  {
+        
+        if showProgress {
+            ProgressHUDShow(text: "")
+        }
+        
+        FirebaseStoreManager.db.collection("Users").document(uid)
+             .getDocument(as: UserModel.self, completion: { result in
+                 if showProgress {
+                     self.ProgressHUDHide()
+                 }
+                switch result {
+                case .success(let userModel):
+                    
+                    UserModel.data = userModel
+                    
+                        //self.showError("Please enable server to Production Mode")
+                        self.beRootScreen(mIdentifier: Constants.StroyBoard.mainViewController)
+                    
+                   
+                    
+                    
+                case .failure(_):
+                    DispatchQueue.main.async {
+                        self.beRootScreen(mIdentifier: Constants.StroyBoard.signInViewController)
+                    }
+                   
+                }
+            })
+           
+        
+    }
     func getUserData(uid : String, showProgress : Bool)  {
         
         if showProgress {
@@ -689,6 +722,7 @@ extension UIViewController {
         return df.string(from: date)
         
     }
+    
     func getAirports()-> [AirportModel]?{
         if let url = Bundle.main.url(forResource: "airports", withExtension: "json") {
             do {

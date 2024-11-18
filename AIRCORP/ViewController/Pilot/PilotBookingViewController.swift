@@ -11,23 +11,14 @@ import FirebaseStorage
 import CoreLocation
 
 class PilotBookingViewController : UIViewController {
-    
+
     @IBOutlet weak var mProfile: UIImageView!
-    
     @IBOutlet weak var helloNameLbl: UILabel!
-    
     @IBOutlet weak var weatherView: UIStackView!
-    
     @IBOutlet weak var currentTemp: UILabel!
-    
-    
     @IBOutlet weak var tableView: UITableView!
-    
- 
     @IBOutlet weak var noBookingAvailable: UILabel!
-    
     @IBOutlet weak var segment: UISegmentedControl!
-    
     var bookingModels = Array<BookingModel>()
     var allBookingModels = Array<BookingModel>()
     let locationManager = CLLocationManager()
@@ -185,9 +176,8 @@ extension PilotBookingViewController : UITableViewDelegate, UITableViewDataSourc
         return BookingTableViewCell()
     }
     
-    
-    
 }
+
 extension PilotBookingViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate,CropViewControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.originalImage] as? UIImage {

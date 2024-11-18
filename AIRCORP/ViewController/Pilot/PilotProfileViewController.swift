@@ -14,10 +14,8 @@ import FirebaseFirestore
 
 class PilotProfileViewController : UIViewController {
     
-
-    @IBOutlet weak var termsOfService: UIView!
-    @IBOutlet weak var privacy: UIView!
-    @IBOutlet weak var version: UILabel!
+    @IBOutlet weak var switchAdminView: UIView!
+    @IBOutlet weak var switchUserView: UIView!
     @IBOutlet weak var inviteFriends: UIView!
     @IBOutlet weak var rateApp: UIView!
    
@@ -52,14 +50,7 @@ class PilotProfileViewController : UIViewController {
         rateApp.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rateAppBtnClicked)))
         inviteFriends.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(inviteFriendBtnClicked)))
         
-        let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-        version.text  = "\(appVersion ?? "1.0")"
-        
-        privacy.isUserInteractionEnabled = true
-        privacy.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(redirectToPrivacyPolicy)))
-        
-        termsOfService.isUserInteractionEnabled = true
-        termsOfService.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(redirectToPrivacyPolicy)))
+      
         
         //Logout
         logout.isUserInteractionEnabled = true
@@ -77,10 +68,28 @@ class PilotProfileViewController : UIViewController {
         aircraftView.isUserInteractionEnabled = true
         aircraftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(airCraftClicked)))
             
-
         
+        switchAdminView.isUserInteractionEnabled = true
+        switchAdminView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchUserViewClicked)))
+        
+        switchUserView.isUserInteractionEnabled = true
+        switchUserView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchUserViewClicked)))
+        
+        
+        if FirebaseStoreManager.auth.currentUser!.uid == "GQX45tl32VNtEdEUnoSoSXuq9js2" {
+            switchAdminView.isHidden = false
+            switchUserView.isHidden = false
+        }
     }
 
+    
+    @objc func swichAdminViewClicked(){
+        getUserData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
+    }
+    
+    @objc func switchUserViewClicked(){
+        getOnlyUserData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
+    }
 
     
     @objc func airCraftClicked(){

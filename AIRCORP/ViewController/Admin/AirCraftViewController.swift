@@ -74,7 +74,14 @@ extension AirCraftViewController : UITableViewDelegate , UITableViewDataSource {
             }
             cell.aircraftNumber.text = aircraftModel.aircraftNumber ?? ""
             cell.nextServiceDate.text = "Next Service : \(self.convertDateToString(aircraftModel.nextServiceDate ?? Date()))"
-            cell.annualDate.text = "Annual : \(self.convertDateToString(aircraftModel.annualDate ?? Date()))"
+            cell.annualDate.text = "Annual Date : \(self.convertDateToString(aircraftModel.annualDate ?? Date()))"
+            
+            cell.flyingTime.text = "Flying Time : \(aircraftModel.flyingTime ?? "0") Hours"
+            
+            cell.aircraftCategory.text = aircraftModel.aircraftType ?? ""
+            cell.aircraftNumber.text = aircraftModel.aircraftNumber ?? ""
+            cell.cruiseSpeed.text = "Cruise Speed : \(aircraftModel.cruiseSpeed ?? "0") Km/h"
+            
             
             cell.docDownloadBtn.isUserInteractionEnabled = true
             let downloadGest = MyGesture(target: self, action: #selector(certificateDownloadClicked(gest: )))

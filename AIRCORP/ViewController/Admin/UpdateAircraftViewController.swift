@@ -23,7 +23,8 @@ class UpdateAircraftViewController : UIViewController {
     @IBOutlet weak var addBtn: UIButton!
     
     @IBOutlet weak var uploadCertificateBtn: UIButton!
-    
+    let pickerView = UIPickerView()
+    let options = [VehicleMode.HELICOPTER, VehicleMode.PLANE]
     let nextServicePicker = UIDatePicker()
     let annualPicker = UIDatePicker()
     var selectedBtn : String?
@@ -33,6 +34,11 @@ class UpdateAircraftViewController : UIViewController {
     var certificateImage : UIImage?
     var aircraftModel : AircraftModel?
     @IBOutlet weak var deleteBtn: UIView!
+    
+    @IBOutlet weak var totalFlyingTimeTF: UITextField!
+    @IBOutlet weak var aircraftCategoryTF: UITextField!
+    @IBOutlet weak var numberOfPassengerSeatsTF: UITextField!
+    @IBOutlet weak var aircraftCruiseSpeedTF: UITextField!
     
     override func viewDidLoad() {
         
@@ -45,6 +51,11 @@ class UpdateAircraftViewController : UIViewController {
             return
             
         }
+        
+        aircraftCategoryTF.text = aircraftModel.aircraftType ?? ""
+        totalFlyingTimeTF.text = aircraftModel.flyingTime ?? ""
+        aircraftCruiseSpeedTF.text = aircraftModel.cruiseSpeed ?? ""
+        numberOfPassengerSeatsTF.text = aircraftModel.numberOfPassengersSeats ?? ""
         
        aircraftNumber.text = aircraftModel.aircraftNumber ?? ""
 
@@ -92,7 +103,20 @@ class UpdateAircraftViewController : UIViewController {
         deleteBtn.dropShadow()
         deleteBtn.isUserInteractionEnabled = true
         deleteBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deleteBtnClicked)))
+        pickerView.delegate = self
+        pickerView.dataSource = self
         
+        aircraftCategoryTF.inputView = pickerView
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.dismissKeyboard))
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        aircraftCategoryTF.inputAccessoryView = toolBar
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func deleteBtnClicked(){
@@ -237,7 +261,10 @@ class UpdateAircraftViewController : UIViewController {
     @IBAction func addBtnClicked(_ sender: Any) {
         
         let sAirCraftNumber = aircraftNumber.text
-      
+        let sFlyingTime = totalFlyingTimeTF.text
+        let sAircraftType = aircraftCategoryTF.text
+        let sNumberOfSeats = numberOfPassengerSeatsTF.text
+        let sAircraftCruiseSpeed = aircraftCruiseSpeedTF.text
         let sNextService = nextServiceDateTF.text
         let sAnnual = annualDateTF.text
        
@@ -245,7 +272,18 @@ class UpdateAircraftViewController : UIViewController {
         if sAirCraftNumber == "" {
             self.showSnack(messages: "Enter aircraft number")
         }
-
+        else if sFlyingTime == "" {
+            self.showSnack(messages: "Enter Total Flying Time")
+        }
+        else if sAircraftType == "" {
+            self.showSnack(messages: "Select Aircraft Category")
+        }
+        else if sNumberOfSeats == "" {
+            self.showSnack(messages: "Enter Number Of Seats")
+        }
+        else if sAircraftCruiseSpeed == "" {
+            self.showSnack(messages: "Enter Aircraft Cruise Speed")
+        }
         else if sNextService == "" {
             self.showSnack(messages: "Select next service date")
         }
@@ -255,12 +293,15 @@ class UpdateAircraftViewController : UIViewController {
        
         else {
             
-           
-           
             self.aircraftModel!.aircraftNumber = sAirCraftNumber
             self.aircraftModel!.nextServiceDate = nextServicePicker.date
             self.aircraftModel!.annualDate = annualPicker.date
         
+            self.aircraftModel!.flyingTime = sFlyingTime
+            self.aircraftModel!.aircraftType = sAircraftType
+            self.aircraftModel!.numberOfPassengersSeats = sNumberOfSeats
+            self.aircraftModel!.cruiseSpeed = sAircraftCruiseSpeed
+            
             self.ProgressHUDShow(text: "")
             
             if isImageSelected {
@@ -566,3 +607,25 @@ extension UpdateAircraftViewController : UIDocumentPickerDelegate {
     }
 }
 
+extension UpdateAircraftViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return options.count
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return options[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+       
+        aircraftCategoryTF.text = options[row]
+    }
+    
+}

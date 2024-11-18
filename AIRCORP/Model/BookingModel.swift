@@ -27,6 +27,8 @@ class BookingModel : NSObject, Codable {
     var cancelReason : String?
     var completionDate : Date?
     var totalPassenger : Int?
+    var travellers : [Traveller]?
     
     
+  
 }

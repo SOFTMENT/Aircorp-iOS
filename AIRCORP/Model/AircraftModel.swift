@@ -18,5 +18,9 @@ class AircraftModel : NSObject, Codable {
     var annualDate : Date?
     var aircraftCreateDate : Date?
     
+    var flyingTime : String?
+    var aircraftType : String?
+    var numberOfPassengersSeats : String?
+    var cruiseSpeed : String?
     
 }

@@ -86,7 +86,7 @@ class SelectLocationcViewController : UIViewController, UITextFieldDelegate {
                 
                 let filteredAirports = allAirports.filter { airport in
                     
-                    return airport.name!.lowercased().contains(query.lowercased())
+                    return (airport.name!.lowercased().contains(query.lowercased()) || airport.ident!.lowercased().contains(query.lowercased()))
                 }
                 
                 DispatchQueue.main.async {

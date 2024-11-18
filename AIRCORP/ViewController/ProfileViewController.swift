@@ -27,6 +27,8 @@ class ProfileViewController : UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var logout: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var switchAdminView: UIView!
+    @IBOutlet weak var switchPilotView: UIView!
     
     var isProfilePicChanged = false
     var downloadURL : String = ""
@@ -85,6 +87,25 @@ class ProfileViewController : UIViewController {
         
         myBookingsView.isUserInteractionEnabled = true
         myBookingsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(myBookingsClicked)))
+        
+        switchAdminView.isUserInteractionEnabled = true
+        switchAdminView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchAdminClicked)))
+        
+        switchPilotView.isUserInteractionEnabled = true
+        switchPilotView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchPilotClicked)))
+        
+        if FirebaseStoreManager.auth.currentUser!.uid == "GQX45tl32VNtEdEUnoSoSXuq9js2" {
+            switchAdminView.isHidden = false
+            switchPilotView.isHidden = false
+        }
+    }
+    
+    @objc func switchPilotClicked(){
+        getPilotData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
+    }
+    
+    @objc func switchAdminClicked(){
+        getUserData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
     }
     
     @objc func myBookingsClicked(){

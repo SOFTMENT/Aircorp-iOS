@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D1646332CD5731E00E2CBD0 /* AllTravellersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1646322CD5731E00E2CBD0 /* AllTravellersViewController.swift */; };
 		5D3161D22B68584400979622 /* BookingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3161D12B68584400979622 /* BookingModel.swift */; };
 		5D3695F92B67089200EBBB26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3695F82B67089200EBBB26 /* AppDelegate.swift */; };
 		5D3695FB2B67089200EBBB26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3695FA2B67089200EBBB26 /* SceneDelegate.swift */; };
@@ -46,6 +47,7 @@
 		5D4D36A32B7837180098F77B /* GoogleLocationCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D36A22B7837180098F77B /* GoogleLocationCallback.swift */; };
 		5D5198CD2B68394B00133C1D /* BookingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5198CC2B68394B00133C1D /* BookingTableViewCell.swift */; };
 		5D6065032B6ED68E009113FB /* EditPilotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6065022B6ED68E009113FB /* EditPilotViewController.swift */; };
+		5D8766072CD4952100272E34 /* Traveller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8766062CD4952100272E34 /* Traveller.swift */; };
 		5D8987672B6D683400516791 /* ShowWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8987662B6D683400516791 /* ShowWeatherViewController.swift */; };
 		5D8987692B6D6D6E00516791 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8987682B6D6D6E00516791 /* Admin.storyboard */; };
 		5D89876C2B6D71BD00516791 /* AdminTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D89876B2B6D71BD00516791 /* AdminTabbarViewController.swift */; };
@@ -65,6 +67,7 @@
 		5D9C945A2B6B05FB003925C6 /* DateTimeCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C94592B6B05FB003925C6 /* DateTimeCallback.swift */; };
 		5D9C945C2B6B1DE4003925C6 /* EstimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C945B2B6B1DE4003925C6 /* EstimationViewController.swift */; };
 		5D9C945E2B6B5381003925C6 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C945D2B6B5381003925C6 /* SuccessViewController.swift */; };
+		5DB6A2E22CD1231B001B1647 /* AddTravellersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6A2E12CD12304001B1647 /* AddTravellersViewController.swift */; };
 		5DB9A3E22B794E9800561967 /* PilotTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB9A3E12B794E9800561967 /* PilotTabbarViewController.swift */; };
 		5DB9A3E42B79527200561967 /* PilotBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB9A3E32B79527200561967 /* PilotBookingViewController.swift */; };
 		5DB9A3E62B79588000561967 /* AdminShowBookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB9A3E52B79588000561967 /* AdminShowBookingDetailsViewController.swift */; };
@@ -88,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		3FF8430E9B5F8E27377D2F48 /* Pods_AIRCORP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AIRCORP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1646322CD5731E00E2CBD0 /* AllTravellersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTravellersViewController.swift; sourceTree = "<group>"; };
 		5D3161D12B68584400979622 /* BookingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingModel.swift; sourceTree = "<group>"; };
 		5D3695F52B67089200EBBB26 /* AIRCORP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIRCORP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3695F82B67089200EBBB26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 		5D4D36A22B7837180098F77B /* GoogleLocationCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLocationCallback.swift; sourceTree = "<group>"; };
 		5D5198CC2B68394B00133C1D /* BookingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTableViewCell.swift; sourceTree = "<group>"; };
 		5D6065022B6ED68E009113FB /* EditPilotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPilotViewController.swift; sourceTree = "<group>"; };
+		5D8766062CD4952100272E34 /* Traveller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traveller.swift; sourceTree = "<group>"; };
 		5D8987662B6D683400516791 /* ShowWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWeatherViewController.swift; sourceTree = "<group>"; };
 		5D8987682B6D6D6E00516791 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		5D89876B2B6D71BD00516791 /* AdminTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTabbarViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 		5D9C94592B6B05FB003925C6 /* DateTimeCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeCallback.swift; sourceTree = "<group>"; };
 		5D9C945B2B6B1DE4003925C6 /* EstimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationViewController.swift; sourceTree = "<group>"; };
 		5D9C945D2B6B5381003925C6 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		5DB6A2E12CD12304001B1647 /* AddTravellersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTravellersViewController.swift; sourceTree = "<group>"; };
 		5DB9A3E12B794E9800561967 /* PilotTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotTabbarViewController.swift; sourceTree = "<group>"; };
 		5DB9A3E32B79527200561967 /* PilotBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotBookingViewController.swift; sourceTree = "<group>"; };
 		5DB9A3E52B79588000561967 /* AdminShowBookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminShowBookingDetailsViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +250,7 @@
 				5D4922362B704AF4008711B9 /* Pilot */,
 				5D89876A2B6D717600516791 /* Admin */,
 				5D3695FC2B67089200EBBB26 /* WelcomeViewController.swift */,
+				5DB6A2E12CD12304001B1647 /* AddTravellersViewController.swift */,
 				5D36961F2B6721E000EBBB26 /* SignInViewController.swift */,
 				5D3696212B6721F700EBBB26 /* SignUpViewController.swift */,
 				5D3696232B67222200EBBB26 /* MainViewController.swift */,
@@ -263,6 +270,7 @@
 				5DF4FE1D2B7E909E00810E99 /* MapRadarViewController.swift */,
 				5DF4FE1F2B7E91D500810E99 /* RadarViewController.swift */,
 				5DF7BC882B8048A600B27D62 /* BookingApprovedViewController.swift */,
+				5D1646322CD5731E00E2CBD0 /* AllTravellersViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -297,6 +305,7 @@
 				5D8987772B6D7C8F00516791 /* NotificationModel.swift */,
 				5DC3E4D82B6D9B1700BDACDC /* PilotModel.swift */,
 				5D4922372B704D33008711B9 /* AircraftModel.swift */,
+				5D8766062CD4952100272E34 /* Traveller.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -540,6 +549,7 @@
 				5D4D369F2B7833080098F77B /* GooglePlacesCell.swift in Sources */,
 				5DCA80312B6ACF6C007F8101 /* LocationCallback.swift in Sources */,
 				5D36962C2B672F5500EBBB26 /* MyExtension.swift in Sources */,
+				5D1646332CD5731E00E2CBD0 /* AllTravellersViewController.swift in Sources */,
 				5D8987722B6D785900516791 /* ManagePiolatViewController.swift in Sources */,
 				5DC3E4D92B6D9B1700BDACDC /* PilotModel.swift in Sources */,
 				5D4922382B704D33008711B9 /* AircraftModel.swift in Sources */,
@@ -564,8 +574,10 @@
 				5D3161D22B68584400979622 /* BookingModel.swift in Sources */,
 				5D8987802B6D8C2400516791 /* PilotsTableViewCell.swift in Sources */,
 				5DC3E4D72B6D999700BDACDC /* PilotPasswordShareViewController.swift in Sources */,
+				5D8766072CD4952100272E34 /* Traveller.swift in Sources */,
 				5D9C945A2B6B05FB003925C6 /* DateTimeCallback.swift in Sources */,
 				5D89876E2B6D776700516791 /* AdminHomeViewController.swift in Sources */,
+				5DB6A2E22CD1231B001B1647 /* AddTravellersViewController.swift in Sources */,
 				5D89877C2B6D7E8200516791 /* AddNotificationViewController.swift in Sources */,
 				5D9C94542B6AF246003925C6 /* SelectDateAndTimeViewController.swift in Sources */,
 				5D49223E2B706788008711B9 /* UpdateAircraftViewController.swift in Sources */,
@@ -725,7 +737,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AIRCORP/AIRCORP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4S3288LXG6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -738,22 +750,23 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.92;
+				MARKETING_VERSION = 1.99;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aviation.AIRCORP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -765,7 +778,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AIRCORP/AIRCORP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4S3288LXG6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -778,22 +791,23 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.92;
+				MARKETING_VERSION = 1.99;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aviation.AIRCORP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

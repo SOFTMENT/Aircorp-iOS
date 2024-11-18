@@ -14,7 +14,9 @@ import FirebaseFirestore
 
 class AdminProfileViewController : UIViewController {
     
-
+    @IBOutlet weak var switchUser: UIView!
+    @IBOutlet weak var switchPilot: UIView!
+    
     @IBOutlet weak var termsOfService: UIView!
     @IBOutlet weak var privacy: UIView!
     @IBOutlet weak var version: UILabel!
@@ -78,7 +80,20 @@ class AdminProfileViewController : UIViewController {
         aircraftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(airCraftClicked)))
             
 
+        switchPilot.isUserInteractionEnabled = true
+        switchPilot.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchPilotClicked)))
         
+        switchUser.isUserInteractionEnabled = true
+        switchUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchUserClicked)))
+        
+    }
+    
+    @objc func switchPilotClicked(){
+        self.getPilotData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
+    }
+    
+    @objc func switchUserClicked(){
+        self.getOnlyUserData(uid: FirebaseStoreManager.auth.currentUser!.uid, showProgress: true)
     }
 
 

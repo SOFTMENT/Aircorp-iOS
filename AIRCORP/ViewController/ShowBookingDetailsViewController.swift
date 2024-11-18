@@ -36,6 +36,8 @@ class ShowBookingDetailsViewController : UIViewController {
     @IBOutlet weak var resositioningTimeLbl: UILabel!
     @IBOutlet weak var repositioningCostLbl: UILabel!
     
+    
+    @IBOutlet weak var allTravellers: UILabel!
     override func viewDidLoad() {
 
         guard
@@ -129,7 +131,22 @@ class ShowBookingDetailsViewController : UIViewController {
         
        
         repositioningCostLbl.text = "£\(repositioningTimeInHour * Float(Constants.COST_PER_HOUR))"
+        
+        allTravellers.isUserInteractionEnabled = true
+        allTravellers.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(allTravellersClicked)))
      
+    }
+    
+    @objc func allTravellersClicked() {
+        self.performSegue(withIdentifier: "allTravellers", sender: self.bookingModel!.travellers)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "allTravellers"  {
+            if let VC = segue.destination as? AllTravellersViewController {
+                VC.travellerArray = self.bookingModel!.travellers
+            }
+        }
     }
     
     @IBAction func contactUsClicked(_ sender: Any) {
